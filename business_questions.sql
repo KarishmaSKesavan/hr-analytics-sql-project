@@ -1,0 +1,47 @@
+SELECT d.department_name,
+       COUNT(l.leave_id) AS total_leaves
+FROM employees e
+JOIN departments d
+ON e.department_id = d.department_id
+LEFT JOIN leaves l
+ON e.employee_id = l.employee_id
+GROUP BY d.department_name
+ORDER BY total_leaves DESC;
+
+SELECT e.employee_name,
+       s.salary
+FROM employees e
+JOIN salaries s
+ON e.employee_id = s.employee_id
+ORDER BY s.salary DESC
+LIMIT 3;
+
+SELECT e.employee_name,
+       s.salary,
+       p.rating
+FROM employees e
+JOIN salaries s
+ON e.employee_id = s.employee_id
+JOIN performance p
+ON e.employee_id = p.employee_id
+WHERE p.rating >= 4
+AND s.salary < 60000;
+
+SELECT d.department_name,
+       AVG(p.rating) AS average_rating
+FROM employees e
+JOIN departments d
+ON e.department_id = d.department_id
+JOIN performance p
+ON e.employee_id = p.employee_id
+GROUP BY d.department_name;
+
+SELECT d.department_name,
+       AVG(s.salary) AS average_salary
+FROM employees e
+JOIN departments d
+ON e.department_id = d.department_id
+JOIN salaries s
+ON e.employee_id = s.employee_id
+GROUP BY d.department_name
+ORDER BY average_salary DESC;
